@@ -11,23 +11,21 @@
           a.button.is-info.is-large(@click="search") Search
           a.button.is-danger.is-large &times;
 
-          p
-            small {{results}}
+      .container
+        small {{results}}
 
       .container
         .columns
           .column(v-for="track in tracks")
-            p {{track.name}} - {{track.artist}}
+            strong {{track.name}}
+            div
+              span(v-for="artist in track.artists")
+                |{{artist.name}} |
 </template>
 
 <script>
 
-const tracks = [
-  { name: 'Song 1', artist: 'Artist 1' },
-  { name: 'Song 2', artist: 'Artist 2' },
-  { name: 'Song 3', artist: 'Artist 3' },
-  { name: 'Song 4', artist: 'Artist 4' }
-]
+import trackService from './services/track'
 
 export default {
   name: 'app',
@@ -39,7 +37,12 @@ export default {
   },
   methods: {
     search () {
-      this.tracks = tracks
+      if (!this.searchQuery) return
+
+      trackService.search(this.searchQuery)
+        .then(response => {
+          this.tracks = response.tracks.items
+        })
     }
   },
   computed: {
