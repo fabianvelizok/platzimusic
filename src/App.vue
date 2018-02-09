@@ -3,7 +3,7 @@
     pm-header
 
     section.section
-      nav.nav.has-shadow
+      nav.nav
         .container
           input.input.is-large(
             type="text"
@@ -23,7 +23,11 @@
           .container.results
             .columns.is-multiline
               .column.is-one-quarter(v-for="track in tracks")
-                pm-track(:track="track")
+                pm-track(
+                  :class="{ 'is-active': track.id === currentTrackId}"
+                  :track="track",
+                  @selectedTrack="setSelectedTrack"
+                )
 
     pm-footer
 </template>
@@ -49,7 +53,8 @@ export default {
       searchQuery: '',
       tracks: [],
       totalTracks: 0,
-      isLoading: false
+      isLoading: false,
+      currentTrackId: ''
     }
   },
   methods: {
@@ -65,6 +70,10 @@ export default {
         .finally(() => {
           this.isLoading = false
         })
+    },
+    setSelectedTrack (trackId) {
+      this.currentTrackId = trackId
+      console.log(trackId)
     }
   },
   computed: {
@@ -77,4 +86,12 @@ export default {
 
 <style lang="scss">
   @import './scss/main.scss';
+
+  .results {
+    margin-top: 50px;
+  }
+
+  .is-active .level-item {
+    color: #23d160;
+  }
 </style>
