@@ -13,50 +13,63 @@
           a.button.is-info.is-large(@click="search") Search
           a.button.is-danger.is-large &times;
 
-      .container
-        small {{results}}
+      div
+        pm-loader(v-show="isLoading")
 
-      .container
-        .columns
-          .column(v-for="track in tracks")
-            strong {{track.name}}
-            div
-              span(v-for="artist in track.artists")
-                |{{artist.name}} |
+        div(v-show="!isLoading")
+          .container
+            small {{results}}
+
+          .container.results
+            .columns.is-multiline
+              .column.is-one-quarter(v-for="track in tracks")
+                pm-track(:track="track")
+
     pm-footer
 </template>
 
 <script>
 
-import trackService from './services/track'
-import pmHeader from './components/layout/header.vue'
-import pmFooter from './components/layout/footer.vue'
+import trackService from '@/services/track'
+import PmHeader from '@/components/layout/Header.vue'
+import PmFooter from '@/components/layout/Footer.vue'
+import PmTrack from '@/components/Track.vue'
+import PmLoader from '@/components/shared/Loader.vue'
 
 export default {
   name: 'app',
   components: {
-    pmHeader,
-    pmFooter
+    PmHeader,
+    PmFooter,
+    PmTrack,
+    PmLoader
   },
   data () {
     return {
       searchQuery: '',
-      tracks: []
+      tracks: [],
+      totalTracks: 0,
+      isLoading: false
     }
   },
   methods: {
     search () {
       if (!this.searchQuery) return
 
+      this.isLoading = true
       trackService.search(this.searchQuery)
         .then(response => {
           this.tracks = response.tracks.items
+          this.totalTracks = response.tracks.total
+        })
+        .finally(() => {
+          this.isLoading = false
         })
     }
   },
   computed: {
     results () {
-      return `${this.tracks.length} results`
+      return `${this.totalTracks} results`
     }
   }
 }
