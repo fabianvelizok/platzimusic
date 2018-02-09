@@ -1,6 +1,8 @@
 <template lang="pug">
   #app
     pm-header
+    pm-notification(v-show="showNotification")
+      p(slot="body") No results
 
     section.section
       nav.nav
@@ -37,8 +39,11 @@
 import trackService from '@/services/track'
 import PmHeader from '@/components/layout/Header.vue'
 import PmFooter from '@/components/layout/Footer.vue'
+
 import PmTrack from '@/components/Track.vue'
+
 import PmLoader from '@/components/shared/Loader.vue'
+import PmNotification from '@/components/shared/Notification.vue'
 
 export default {
   name: 'app',
@@ -46,7 +51,8 @@ export default {
     PmHeader,
     PmFooter,
     PmTrack,
-    PmLoader
+    PmLoader,
+    PmNotification
   },
   data () {
     return {
@@ -54,7 +60,8 @@ export default {
       tracks: [],
       totalTracks: 0,
       isLoading: false,
-      currentTrackId: ''
+      currentTrackId: '',
+      showNotification: false
     }
   },
   methods: {
@@ -66,6 +73,7 @@ export default {
         .then(response => {
           this.tracks = response.tracks.items
           this.totalTracks = response.tracks.total
+          this.showNotification = !this.totalTracks
         })
         .finally(() => {
           this.isLoading = false
@@ -79,6 +87,15 @@ export default {
   computed: {
     results () {
       return `${this.totalTracks} results`
+    }
+  },
+  watch: {
+    showNotification () {
+      if (this.showNotification) {
+        setTimeout(() => {
+          this.showNotification = false
+        }, 3000)
+      }
     }
   }
 }
