@@ -1,8 +1,11 @@
 <template lang="pug">
   #app
     pm-header
-    pm-notification(v-show="showNotification")
-      p(slot="body") No results
+    pm-notification(
+      :is-success="isSuccess"
+      v-show="showNotification"
+    )
+      div(slot="body") {{notificationMessage}}
 
     section.section
       nav.nav
@@ -39,9 +42,7 @@
 import trackService from '@/services/track'
 import PmHeader from '@/components/layout/Header.vue'
 import PmFooter from '@/components/layout/Footer.vue'
-
 import PmTrack from '@/components/Track.vue'
-
 import PmLoader from '@/components/shared/Loader.vue'
 import PmNotification from '@/components/shared/Notification.vue'
 
@@ -61,27 +62,40 @@ export default {
       totalTracks: 0,
       isLoading: false,
       currentTrackId: '',
-      showNotification: false
+      showNotification: false,
+      notificationMessage: '',
+      isSuccess: false
     }
   },
   methods: {
     search () {
       if (!this.searchQuery) return
 
+      this.showNotification = false
       this.isLoading = true
+
       trackService.search(this.searchQuery)
         .then(response => {
           this.tracks = response.tracks.items
           this.totalTracks = response.tracks.total
-          this.showNotification = !this.totalTracks
+
+          // Notification vars
+          this.isSuccess = !!this.totalTracks
+          this.notificationMessage = this.totalTracks
+            ? `${this.totalTracks} results.` : 'No results.'
+        })
+        .catch(() => {
+          // Notification vars
+          this.isSuccess = false
+          this.notificationMessage = 'Ups... Something was wrong.'
         })
         .finally(() => {
+          this.showNotification = true
           this.isLoading = false
         })
     },
     setSelectedTrack (trackId) {
       this.currentTrackId = trackId
-      console.log(trackId)
     }
   },
   computed: {

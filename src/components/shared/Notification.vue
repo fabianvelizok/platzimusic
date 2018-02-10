@@ -2,8 +2,11 @@
   .container
     .columns
       .column.is-5.is-offset-4
-        .notification.is-danger.has-text-centered
-          slot(name="body") Something was wrong :(
+        .notification.has-text-centered(
+          :class="{'is-success': isSuccess, 'is-danger': !isSuccess }"
+        )
+          slot(name="body")
+            div Something was wrong.
 </template>
 
 <style lang="scss" scoped>
@@ -11,3 +14,12 @@
     margin: 10px;
   }
 </style>
+
+<script>
+export default {
+  props: {
+    isSuccess: { type: Boolean, required: true }
+  }
+}
+</script>
+
