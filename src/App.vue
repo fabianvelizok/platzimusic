@@ -26,7 +26,8 @@ export default {
     margin-top: 50px;
   }
 
-  .is-active .level-item {
+  .is-active .level-item,
+  .is-active .title a {
     color: #23d160;
   }
 </style>

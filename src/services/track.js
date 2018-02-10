@@ -12,4 +12,10 @@ trackService.search = (q) => {
     .catch(error => console.error(error))
 }
 
+trackService.getById = (id) => {
+  return platziMusicService.get(`/tracks/${id}`)
+    .then(response => response.data)
+    .catch(error => console.error(error))
+}
+
 export default trackService

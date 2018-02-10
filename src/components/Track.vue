@@ -1,5 +1,5 @@
 <template lang="pug">
-  .card
+  .card(v-if="track && track.album")
     .card-image
       figure.image.is-1by1
         img(:src="track.album.images[0].url")
@@ -10,7 +10,8 @@
             img(:src="track.album.images[2].url")
         .media-content
           p.title.is-6
-            strong {{track.name}}
+            strong
+              router-link(:to="{ name: 'track', params: { id: this.track.id } }") {{track.name}}
           div
             p.subtitle.is-6
               span(v-for="artist in track.artists")
@@ -21,6 +22,9 @@
           .level-left
             a.level-item
               span.icon.is-small(@click="selectedTrack") ▶
+            router-link.level-item(:to="{ name: 'track', params: { id: this.track.id } }")
+              |🔗
+
 </template>
 
 <script>
