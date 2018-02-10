@@ -31,6 +31,8 @@ export default {
   methods: {
     selectedTrack () {
       this.$emit('selectedTrack', this.track.id)
+      // Global $emit
+      this.$bus.$emit('setTrack', this.track)
     }
   }
 }
