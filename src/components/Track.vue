@@ -17,7 +17,7 @@
               span(v-for="artist in track.artists")
                 |{{artist.name}} |
       .content
-        small
+        small {{track.duration_ms | ms-to-mm}}
         nav.level
           .level-left
             a.level-item
