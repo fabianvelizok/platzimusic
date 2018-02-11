@@ -1,10 +1,11 @@
 <template lang="pug">
   main
-    pm-notification(
-      :is-success="isSuccess"
-      v-show="showNotification"
-    )
-      div(slot="body") {{notificationMessage}}
+    transition(name="move")
+      pm-notification(
+        :is-success="isSuccess"
+        v-show="showNotification"
+      )
+        div(slot="body") {{notificationMessage}}
 
     section.section
       nav.nav
@@ -19,7 +20,8 @@
           a.button.is-danger.is-large &times;
 
       div
-        pm-loader(v-show="isLoading")
+        transition(name="move")
+          pm-loader(v-show="isLoading")
 
         div(v-show="!isLoading")
           .container
