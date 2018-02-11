@@ -1,2 +1,4 @@
 @import '../../node_modules/bulma/bulma.sass';
-@import './transitions.scss';
+
+@import './transitions/move.scss';
+@import './transitions/track.scss';

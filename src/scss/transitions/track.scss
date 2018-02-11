@@ -1,0 +1,8 @@
+.track-enter-active, .track-leave-active {
+  opacity: 1;
+  transition: all 1s linear;
+}
+
+.track-enter, .track-leave-to {
+  opacity: 0;
+}

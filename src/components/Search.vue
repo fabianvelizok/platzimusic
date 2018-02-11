@@ -28,8 +28,14 @@
             small {{results}}
 
           .container.results
-            .columns.is-multiline
-              .column.is-one-quarter(v-for="track in tracks")
+            transition-group.columns.is-multiline(
+              name="track",
+              tag="div",
+            )
+              .column.is-one-quarter(
+                v-for="track in tracks"
+                :key="track.id"
+              )
                 pm-track(
                   v-blur="track.preview_url"
                   :class="{ 'is-active': track.id === currentTrackId}"
