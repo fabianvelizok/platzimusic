@@ -22,12 +22,19 @@ export default {
 <style lang="scss">
   @import './scss/main.scss';
 
+  $green: #23d160;
+
   .results {
     margin-top: 50px;
   }
 
-  .is-active .level-item,
-  .is-active .title a {
-    color: #23d160;
+  .is-active {
+    .play-button {
+      background-color: $green;
+      color: #fff;
+    }
+    .track-name, .track-artists {
+      color: $green;
+    }
   }
 </style>

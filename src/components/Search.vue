@@ -29,6 +29,7 @@
             .columns.is-multiline
               .column.is-one-quarter(v-for="track in tracks")
                 pm-track(
+                  v-blur="track.preview_url"
                   :class="{ 'is-active': track.id === currentTrackId}"
                   :track="track",
                   @selectedTrack="setSelectedTrack"
@@ -109,7 +110,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .results {
     margin-top: 50px;
   }

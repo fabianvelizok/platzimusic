@@ -10,20 +10,22 @@
             img(:src="track.album.images[2].url")
         .media-content
           p.title.is-6
-            strong
-              router-link(:to="{ name: 'track', params: { id: this.track.id } }") {{track.name}}
+            strong.track-name {{track.name}}
           div
-            p.subtitle.is-6
+            p.subtitle.is-6.track-artists
               span(v-for="artist in track.artists")
                 |{{artist.name}} |
       .content
         small {{track.duration_ms | ms-to-mm}}
         nav.level
           .level-left
-            a.level-item
-              span.icon.is-small(@click="selectedTrack") ▶
-            router-link.level-item(:to="{ name: 'track', params: { id: this.track.id } }")
-              |🔗
+            button.level-item.button.is-primary.play-button(@click="selectedTrack")
+              span.icon.is-small ▶
+            router-link.level-item.button(
+              tag="button",
+              :to="{ name: 'track', params: { id: this.track.id } }"
+            )
+              span.icon.is-small 🔗
 
 </template>
 
