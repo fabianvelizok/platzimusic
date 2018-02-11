@@ -8,7 +8,7 @@
             figure.media-left
               img.image(:src="track.album.images[0].url")
             p
-              a.button.is-primary.is-large
+              a.button.is-primary.is-large.play-button
                 span.icon(@click="selectTrack") ▶
           .column.is-8
             .panel
@@ -21,7 +21,7 @@
                       ul(v-for="(v, k) in track")
                         li
                           strong {{k}}:&nbsp;
-                          span {{k}}
+                          span {{v}}
 
                   nav.level
                     .level-left
@@ -71,6 +71,10 @@ export default {
 <style lang="scss" scoped>
   .column {
     padding: 20px;
+  }
+
+  .play-button {
+    margin-top: 10px;
   }
 
   .button-bar {

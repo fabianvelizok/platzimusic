@@ -7,7 +7,7 @@
             .nav-item
               strong 🎧 Platzi Music
           .nav-right.nav-menu
-            router-link.nav-item(to="/") search
+            router-link.nav-item(to="/") Search
             router-link.nav-item(to="about") About us
 
     .hero-body
