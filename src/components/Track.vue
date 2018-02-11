@@ -19,7 +19,7 @@
         small {{track.duration_ms | ms-to-mm}}
         nav.level
           .level-left
-            button.level-item.button.is-primary.play-button(@click="selectedTrack")
+            button.level-item.button.is-primary.play-button(@click="selectTrack")
               span.icon.is-small ▶
             router-link.level-item.button(
               tag="button",
@@ -30,16 +30,14 @@
 </template>
 
 <script>
+import trackMixing from '@/mixins/track'
+
 export default {
+  mixins: [
+    trackMixing
+  ],
   props: {
     track: { type: Object, required: true }
-  },
-  methods: {
-    selectedTrack () {
-      this.$emit('selectedTrack', this.track.id)
-      // Global $emit
-      this.$bus.$emit('setTrack', this.track)
-    }
   }
 }
 </script>
