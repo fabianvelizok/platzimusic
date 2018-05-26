@@ -1,18 +1,19 @@
 # professional-platzimusic
 
-> A Vue.js project
+> A Vue.js project to find and play songs!
 
 ## Build Setup
+Make sure that you have [Yarn](https://yarnpkg.com/en/docs/install#debian-stable) installed, v1.7.0.
 
 ``` bash
-# install dependencies
-npm install
+# Install dependencies
+yarn
 
-# serve with hot reload at localhost:8080
-npm run dev
+# Serve with hot reload at localhost:8080
+yarn dev
 
-# build for production with minification
-npm run build
+# Build for production with minification
+yarn build
 ```
 
 For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
